@@ -1,0 +1,42 @@
+{
+    "classes": [
+      {
+        "name": "Customer",
+        "attributes": [
+          {"name": "customerId", "type": "String"},
+          {"name": "name", "type": "String"}
+        ],
+        "methods": [
+          {"name": "register", "returnType": "Void"},
+          {"name": "login", "returnType": "Boolean"}
+        ]
+      },
+      {
+        "name": "Account",
+        "attributes": [
+          {"name": "accountNumber", "type": "String"},
+          {"name": "balance", "type": "Double"}
+        ],
+        "methods": [
+          {"name": "deposit", "parameters": [{"name": "amount", "type": "Double"}], "returnType": "Void"},
+          {"name": "withdraw", "parameters": [{"name": "amount", "type": "Double"}], "returnType": "Boolean"}
+        ]
+      },
+      {
+        "name": "Transaction",
+        "attributes": [
+          {"name": "transactionId", "type": "String"},
+          {"name": "amount", "type": "Double"},
+          {"name": "date", "type": "Date"}
+        ],
+        "methods": [
+          {"name": "execute", "returnType": "Boolean"}
+        ]
+      }
+    ],
+    "relationships": [
+      {"from": "Customer", "to": "Account", "type": "owns"},
+      {"from": "Account", "to": "Transaction", "type": "records"}
+    ]
+  }
+  
