@@ -38,7 +38,7 @@ Each example is accompanied by an iterative refinement process, reflecting the s
 To utilize our software modeling pipeline, follow these simple steps:
 
 ### Jupyter Notebook
-
+(Python3 is used here)
 - Navigate to the `src` directory where the Jupyter notebook (`*.ipynb`) is located.
 - The notebook contains well-commented cells that guide you through the process of generating software models. Run each cell sequentially to see the methodology in action.
 - Make sure to provide the specific diagram examples as input where indicated in the notebook.
