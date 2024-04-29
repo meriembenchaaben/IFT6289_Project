@@ -1,0 +1,80 @@
+{
+  "DesignFormalisms": {
+    "Structural": [
+      {
+        "Name": "Class Diagrams (UML)",
+        "Purpose": "Visualizes the classes of a system and the relationships among them.",
+        "MetamodelElements": ["Classes", "Attributes", "Static Relationships"],
+        "NotableCharacteristics": "Emphasizes data structures and static designs."
+      },
+      {
+        "Name": "Component Diagrams (UML)",
+        "Purpose": "Describes how a software system is split up into components and shows the dependencies among these components.",
+        "MetamodelElements": ["Components", "Interfaces", "Ports", "Connectors"],
+        "NotableCharacteristics": "Useful for modular system architecture."
+      },
+      {
+        "Name": "Deployment Diagrams (UML)",
+        "Purpose": "Models the physical deployment of artifacts on nodes.",
+        "MetamodelElements": ["Nodes", "Artifacts", "Associations"],
+        "NotableCharacteristics": "Focuses on hardware and deployment specifics."
+      },
+      {
+        "Name": "Entity-Relationship Diagram (ERD)",
+        "Purpose": "Primarily used for data modeling to illustrate the database structure.",
+        "MetamodelElements": ["Entities", "Relationships", "Attributes"],
+        "NotableCharacteristics": "Commonly used in designing relational databases."
+      },
+      {
+        "Name": "SysML (Systems Modeling Language)",
+        "Purpose": "A general-purpose modeling language for systems engineering.",
+        "MetamodelElements": ["Blocks (structural units)", "Constraint blocks", "Parts", "References"],
+        "NotableCharacteristics": "Extends UML and provides additional diagrams like block definition diagrams."
+      },
+      {
+        "Name": "ArchiMate",
+        "Purpose": "An enterprise architecture modeling language.",
+        "MetamodelElements": ["Business processes", "Application functions", "Infrastructure"],
+        "NotableCharacteristics": "Supports description of architectures through viewpoints and layers."
+      }
+    ],
+    "Behavioral": [
+      {
+        "Name": "Activity Diagrams (UML)",
+        "Purpose": "Represents workflows of stepwise activities and actions.",
+        "MetamodelElements": ["Activities", "Transitions", "Decision nodes", "Fork/Join nodes"],
+        "NotableCharacteristics": "Illustrates the flow from one activity to another."
+      },
+      {
+        "Name": "Sequence Diagrams (UML)",
+        "Purpose": "Shows how objects communicate with each other in terms of a sequence of messages.",
+        "MetamodelElements": ["Objects", "Lifelines", "Messages", "Activations"],
+        "NotableCharacteristics": "Useful for specifying interactions based on time sequence."
+      },
+      {
+        "Name": "State Machine Diagrams (UML)",
+        "Purpose": "Describes the state transitions and actions of a system in response to events.",
+        "MetamodelElements": ["States", "Transitions", "Events", "Actions"],
+        "NotableCharacteristics": "Captures system behavior through states."
+      },
+      {
+        "Name": "Data Flow Diagrams (DFDs)",
+        "Purpose": "Visualizes the flow of data through a system.",
+        "MetamodelElements": ["Data stores", "Data flows", "Processes", "External entities"],
+        "NotableCharacteristics": "Emphasizes the movement of data between processes and data stores."
+      },
+      {
+        "Name": "Specification and Description Language (SDL)",
+        "Purpose": "Used for specifying the behavior and structure of system applications.",
+        "MetamodelElements": ["System", "Blocks", "Processes", "Signals", "States"],
+        "NotableCharacteristics": "Useful in telecommunications and real-time systems."
+      },
+      {
+        "Name": "Colored Petri Nets (CPNs)",
+        "Purpose": "Models distributed systems with complex synchronizations.",
+        "MetamodelElements": ["Places", "Transitions", "Colored tokens", "Arcs"],
+        "NotableCharacteristics": "Enhances the modeling capabilities of Petri nets by incorporating data and conditions."
+      }
+    ]
+  }
+}

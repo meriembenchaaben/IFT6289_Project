@@ -1,30 +1,56 @@
 import json
-from transformers import GPTJForCausalLM, AutoTokenizer, GPT2Tokenizer, GPT2LMHeadModel, GPTNeoForCausalLM
-
+from transformers import GPTJForCausalLM, AutoTokenizer, AutoModelForCausalLM,GPT2Tokenizer, GPT2LMHeadModel, GPTNeoForCausalLM ,XLNetForSequenceClassification, XLNetTokenizer, T5ForConditionalGeneration, T5Tokenizer, BertTokenizer, BertForMaskedLM
 import re
 from semanticMapping import dynamic_semantic_mapping
 from semantic_extractor import SemanticExtractor
 
 # Load the ontology from the JSON file
-with open('../data/modeling_languages_ontology.json', 'r') as file:
+with open('def-sponsor00/meriembchaaben/data/modeling_languages_ontology.json', 'r') as file:
     ontology = json.load(file)
 
 # Load the pre-trained GPT-J model and tokenizer
-model_name = "EleutherAI/gpt-j-6B"  # will be replaced with the best  model 
+#model_name = "EleutherAI/gpt-j-6B"  # will be replaced with the best  model
 
-#print('model loaded ')
 #tokenizer = AutoTokenizer.from_pretrained(model_name)
 #model = GPTJForCausalLM.from_pretrained(model_name)
 
-model_name = "gpt2"  # This loads the "small" version of GPT-2
+#model_name = "gpt-neo"  # This loads the "small" version of GPT-2
 #tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 #model = GPT2LMHeadModel.from_pretrained(model_name)
 
-model_name = "EleutherAI/gpt-neo-1.3B"
-model = GPTNeoForCausalLM.from_pretrained(model_name)
-tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
-print('model loaded ')
+
+# Load pre-trained T5 model and tokenizer
+#model_name = "t5-large"  # You can choose other T5 variants like "t5-base", "t5-large", etc.
+#tokenizer = T5Tokenizer.from_pretrained(model_name)
+#model = T5ForConditionalGeneration.from_pretrained(model_name)
+
+
+#model_name = "EleutherAI/gpt-neo-1.3B"
+#model = GPTNeoForCausalLM.from_pretrained(model_name)
+#tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+
+#model_name = "bert-large-uncased"  # You can choose other BERT variants like "bert-large-uncased", "bert-base-cased", etc.
+#tokenizer = BertTokenizer.from_pretrained(model_name)
+#model = BertForMaskedLM.from_pretrained(model_name)
+
+
+
+#model_name = "t5-large"  # You can choose other T5 variants like "t5-base", "t5-large", etc.
+#tokenizer = T5Tokenizer.from_pretrained(model_name)
+#model = T5ForConditionalGeneration.from_pretrained(model_name)
+
+
+
+model_name = "TheBloke/LLaMA-Pro-8B-GPTQ"
+model = AutoModelForCausalLM.from_pretrained(model_name,
+                                             device_map="auto",
+                                             trust_remote_code=False,
+                                             revision="main")
+tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=True)
+
+
+print('model loaded :', model_name)
 
 def find_metamodel_elements(data, formalism_name):
     if isinstance(data, dict):
@@ -45,27 +71,17 @@ def find_metamodel_elements(data, formalism_name):
     return None  # Ensure that None is returned if no result is found
 
 
-def generate_text_GPT_J(prompt, max_length=100):
-    """
-    Generates text from a prompt using GPT-J.
-    """
-    input_ids = tokenizer.encode(prompt, return_tensors="pt")
-    output = model.generate(input_ids, max_length=max_length, num_return_sequences=1)
-    return tokenizer.decode(output[0], skip_special_tokens=True)
 
-def generate_text_GPT_2( prompt, max_length=100):
-    """
-    Generates text from a prompt using GPT-2.
-    
-    :param model: The loaded GPT-2 model.
-    :param tokenizer: The loaded tokenizer.
-    :param prompt: The input prompt to generate text from.
-    :param max_length: The maximum total sequence length after tokenization.
-    """
+
+
+
+def generate_text( prompt, max_length=150):
+
+
     input_ids = tokenizer.encode(prompt, return_tensors="pt")
     print(input_ids)
 
-    output = model.generate(input_ids, max_length=max_length, num_return_sequences=1)
+    output = model.generate(input_ids, temperature=0.7, do_sample=True, top_p=0.95, top_k=40, max_new_tokens=512, max_length=max_length, num_return_sequences=1)
     print("outputt: ..... ", output)
     return tokenizer.decode(output[0], skip_special_tokens=True)
 
@@ -91,6 +107,7 @@ def generate_prompt_for_formalism(formalism_name, current_model, metamodel_eleme
         #metamodel_description = ', '.join(metamodel_elements)
         prompt_parts = [
             f"I am developing a {formalism_name} which currently includes: {current_model}.",
+            f"suggest missing elements",
             f"It should also contain elements such as: {metamodel_elements}."
         ]
         
@@ -102,7 +119,7 @@ def generate_prompt_for_formalism(formalism_name, current_model, metamodel_eleme
         if specific_constraints:
             prompt_parts.append(f"This should adhere to the following constraints: {specific_constraints}.")
         
-        prompt_parts.append("How should I further refine and complete this model?")
+        prompt_parts.append("suggest missing elements:")
         
         # Semantic Mapping
        #### semantic_description = '. '.join([f"A {key} is represented as a {value} in natural language" for key, value in dynamic_semantic_mapping.items()])
@@ -174,7 +191,7 @@ def main():
         print(f"Prompt to LLM:\n{prompt}\n")
 
         # Generate text from the LLM
-        llm_response = generate_text_GPT_2(prompt)
+        llm_response = generate_text(prompt)
         print(f"LLM Response:\n{llm_response}\n")
 
         # Extract elements from the LLM response

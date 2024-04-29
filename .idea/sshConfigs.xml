@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="ift6759.calculquebec.cloud" id="e2b51985-98a8-47b3-9593-0e1f01d04902" port="22" nameFormat="DESCRIPTIVE" username="kibiddd" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>
